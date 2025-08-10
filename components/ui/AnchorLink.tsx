@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export default function AnchorLink({ href, children }: { href?: string; children: React.ReactNode }) {
+export default function AnchorLink({ href, children, className }: { href?: string; children: React.ReactNode, className?: string }) {
   const safeHref = href ?? '#';
   const lower = safeHref.toLowerCase();
   const isHash = safeHref.startsWith('#');
@@ -10,7 +10,7 @@ export default function AnchorLink({ href, children }: { href?: string; children
 
   if (isRelative) {
     return (
-      <Link href={safeHref} className="govuk-link">
+      <Link href={safeHref} className={`govuk-link ${className}`}>
         {children}
       </Link>
     );
@@ -18,7 +18,7 @@ export default function AnchorLink({ href, children }: { href?: string; children
 
   if (isMailOrTel) {
     return (
-      <a href={safeHref} className="govuk-link">
+      <a href={safeHref} className={`govuk-link ${className}`}>
         {children}
       </a>
     );
@@ -26,7 +26,7 @@ export default function AnchorLink({ href, children }: { href?: string; children
 
   if (isHttp) {
     return (
-      <a href={safeHref} className="govuk-link" target="_blank" rel="noopener noreferrer">
+      <a href={safeHref} className={`govuk-link ${className}`} target="_blank" rel="noopener noreferrer">
         {children}
       </a>
     );
@@ -34,7 +34,7 @@ export default function AnchorLink({ href, children }: { href?: string; children
 
   // Fallback
   return (
-    <a href={safeHref} className="govuk-link">
+    <a href={safeHref} className={`govuk-link ${className}`}>
       {children}
     </a>
   );

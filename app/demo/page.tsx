@@ -9,6 +9,7 @@ import { useSearchParams } from "next/navigation";
 import { evaluate } from "@/forms/conditions";
 import { createFormState } from "@/forms/utils";
 import { useMediaQuery } from "usehooks-ts";
+import AnchorLink from "@/components/ui/AnchorLink";
 
 export default function Demo() {
   const searchParams = useSearchParams();
@@ -83,8 +84,10 @@ export default function Demo() {
 
 
   return (
+
     <div className="grid grid-cols-1 lg:grid-cols-12">
       <div className="col-span-1 lg:col-span-8 p-6 lg:pt-6 pb-32 lg:px-12">
+        <AnchorLink href="/" className="mb-6 block">Back to home</AnchorLink>
         <FormRenderer
           form={form}
           currentSection={currentSection}
