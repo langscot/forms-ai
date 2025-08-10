@@ -10,22 +10,8 @@ export default async function Home() {
 
   return (
     <div className="h-screen max-h-screen container mx-auto max-w-2xl py-12 px-4">
-
       <Heading>Forms & AI</Heading>
-      <Paragraph>I like forms.</Paragraph>
-
-      <Details title="Why?">
-        <Paragraph>
-          Forms are great at capturing information. When they’re well-designed, they can check that information as you type, guide people down different paths based on their circumstances, and sometimes even give instant decisions.
-        </Paragraph>
-      </Details>
-
-      <Paragraph>
-        But… forms can get long. Really long. They can be full of text, instructions, and complex questions. Sometimes it’s enough to make someone give up before they even start.
-      </Paragraph>
-
-      <Paragraph>This experiment asks:</Paragraph>
-      <Paragraph>Can AI make forms easier to handle?</Paragraph>
+      <Paragraph>This experiment asks: Can AI make forms easier to handle?</Paragraph>
 
       <Details title="How?">
         <Paragraph>The AI assistant here can:</Paragraph>

@@ -179,5 +179,4 @@ if (require.main === module) {
   const json = fs.readFileSync('example_forms/council_tax_reduction.json', 'utf8');
   const object = JSON.parse(json);
   const form = parseFirmstepJson(object);
-  // console.log(JSON.stringify(form, null, 2));
 }

@@ -8,12 +8,14 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { evaluate } from "@/forms/conditions";
 import { createFormState } from "@/forms/utils";
+import { useMediaQuery } from "usehooks-ts";
 
 export default function Demo() {
   const searchParams = useSearchParams();
   const [form, setForm] = useState<Form | null>(null);
   const [currentSection, setCurrentSection] = useState(0);
   const [state, setState] = useState<Record<string, unknown>>({});
+  const isMobile = useMediaQuery('(max-width: 1024px)');
 
   // Load the form :)
   useEffect(() => {
@@ -21,7 +23,6 @@ export default function Demo() {
       if (form) {
         setForm(form);
         setState(createFormState(form));
-        console.debug(form);
       }
     });
   }, [searchParams]);
@@ -80,9 +81,10 @@ export default function Demo() {
     );
   }
 
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-12">
-      <div className="col-span-1 md:col-span-8 p-6 md:p-12">
+    <div className="grid grid-cols-1 lg:grid-cols-12">
+      <div className="col-span-1 lg:col-span-8 p-6 lg:pt-6 pb-32 lg:px-12">
         <FormRenderer
           form={form}
           currentSection={currentSection}
@@ -92,12 +94,15 @@ export default function Demo() {
           getNearestVisibleSectionIndex={getNearestVisibleSectionIndex}
         />
       </div>
-      <aside className="col-span-1 md:col-span-4 md:sticky md:top-0 md:h-dvh">
+      <aside className="lg:block lg:col-span-4 lg:sticky lg:top-0 lg:h-dvh">
         <Chat
-          sectionContexts={getSectionContexts() ?? []}
-          currentSection={currentSection}
-          currentSectionContext={currentSectionContext}
+          isWidget={isMobile}
           setState={setState}
+          body={{
+            sectionContexts: getSectionContexts() ?? [],
+            currentSection,
+            currentSectionContext
+          }}
         />
       </aside>
     </div>

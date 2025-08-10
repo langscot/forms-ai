@@ -22,8 +22,6 @@ export default function FormField({ field, state, setState }: FormFieldProps) {
     field.hidden ? false :
       field.displayCondition ? evaluate(field.displayCondition, state) : true;
 
-  console.log(isVisible);
-
   if (!isVisible) {
     return null;
   }

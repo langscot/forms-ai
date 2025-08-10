@@ -4,6 +4,7 @@ type ButtonProps = {
   type?: 'button' | 'submit';
   disabled?: boolean;
   variant?: 'default' | 'secondary' | 'destructive';
+  className?: string;
 };
 
 export default function Button({
@@ -12,6 +13,7 @@ export default function Button({
   children,
   type = 'button',
   disabled = false,
+  className,
 }: ButtonProps) {
   const variantClass =
     variant === 'secondary'
@@ -23,7 +25,7 @@ export default function Button({
   return (
     <button
       type={type}
-      className={`govuk-button m-0! ${variantClass}`}
+      className={`govuk-button m-0! ${variantClass} ${className}`}
       data-module="govuk-button"
       disabled={disabled}
       onClick={onClick}

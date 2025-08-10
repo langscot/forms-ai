@@ -3,9 +3,13 @@ import Button from "./ui/Button";
 import { UseChatHelpers } from "@ai-sdk/react";
 
 export default function ChatHeader({
-  setMessages
+  setMessages,
+  isWidget,
+  setOpen,
 }: {
   setMessages: UseChatHelpers<MyUIMessage>['setMessages']
+  isWidget?: boolean;
+  setOpen?: (open: boolean) => void;
 }) {
   return <div className="flex items-center justify-between p-4 border-b border-gray-200">
     <h1 className="text-2xl font-bold">AI Assistant</h1>
@@ -13,6 +17,13 @@ export default function ChatHeader({
       <Button variant="secondary" type="button" onClick={() => setMessages([])}>
         Refresh Chat
       </Button>
+      {
+        isWidget && (
+          <Button variant="secondary" type="button" onClick={() => setOpen?.(false)}>
+            Minimize
+          </Button>
+        )
+      }
     </div>
   </div>;
 }
