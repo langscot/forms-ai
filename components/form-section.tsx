@@ -2,7 +2,6 @@
 
 import { Section } from "@/forms/types";
 import Heading from "./ui/Heading";
-import Paragraph from "./ui/Paragraph";
 import FormField from "./form-field";
 
 type FormSectionProps = {

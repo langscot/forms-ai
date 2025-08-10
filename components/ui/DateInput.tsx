@@ -88,6 +88,7 @@ export default function DateInput({
                 type="text"
                 inputMode="numeric"
                 defaultValue={defaultValue?.year}
+                onChange={onChange}
               />
             </div>
           </div>

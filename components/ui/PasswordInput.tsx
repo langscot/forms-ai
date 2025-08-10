@@ -33,6 +33,8 @@ export default function PasswordInput({
 
   useEffect(() => {
     // Progressive enhancement for password reveal and button styling
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     import('govuk-frontend').then((mod: any) => {
       try {
         if (mod?.createAll && mod?.PasswordInput) {

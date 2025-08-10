@@ -16,7 +16,6 @@ export default function Select({
   placeholder,
   required = false,
   disabled = false,
-  defaultValue,
   onChange,
   value,
 }: {
