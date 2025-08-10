@@ -1,103 +1,65 @@
-import Image from "next/image";
+import Chat from "@/components/chat";
+import AnchorLink from "@/components/ui/AnchorLink";
+import Details from "@/components/ui/Details";
+import Heading from "@/components/ui/Heading";
+import Paragraph from "@/components/ui/Paragraph";
+import SummaryList, { SummaryListItem } from "@/components/ui/SummaryList";
+import { getExampleForms } from "@/lib/actions";
+import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  const forms = await getExampleForms();
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="grid grid-cols-12 h-screen max-h-screen">
+      <div className="col-span-12 md:col-span-8 p-12">
+        <Heading>Forms & AI</Heading>
+        <Paragraph>I like forms.</Paragraph>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <Details title="Why?">
+          <Paragraph>
+            Forms are great at capturing information. When they’re well-designed, they can check that information as you type, guide people down different paths based on their circumstances, and sometimes even give instant decisions.
+          </Paragraph>
+        </Details>
+
+        <Paragraph>
+          But… forms can get long. Really long. They can be full of text, instructions, and complex questions. Sometimes it’s enough to make someone give up before they even start.
+        </Paragraph>
+
+        <Paragraph>This experiment asks:</Paragraph>
+        <Paragraph>Can AI make forms easier to handle?</Paragraph>
+
+        <Details title="How?">
+          <Paragraph>The AI assistant here can:</Paragraph>
+          <ul className="govuk-list govuk-list--bullet">
+            <li>Talk someone through the form step-by-step</li>
+            <li>Answer questions in plain language</li>
+            <li>
+              Suggest likely answers based on earlier responses (e.g., if someone says they’re unemployed and live alone, it might suggest they’re not married)
+            </li>
+          </ul>
+        </Details>
+
+        <Paragraph>
+          This site is just a technology demo. It’s not connected to any real services. It’s designed to help explore what’s possible when online forms and AI work together.
+        </Paragraph>
+
+        <Paragraph>Try it out:</Paragraph>
+        <Paragraph>Pick an example form below and see the form + AI assistant in action.</Paragraph>
+
+        <Heading level={2}>Example forms</Heading>
+
+        <SummaryList>
+          {forms.map((form) => (
+            <SummaryListItem key={form.title} label={form.title} value={form.description || 'No description'} actions={
+              <AnchorLink href={`/demo?form=${form.title}`}>View</AnchorLink>
+            } />
+          ))}
+        </SummaryList>
+      </div>
+      <div className="col-span-12 md:col-span-4 h-full max-h-full min-h-0">
+        <Chat />
+      </div>
     </div>
   );
 }
