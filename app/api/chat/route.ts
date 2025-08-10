@@ -103,7 +103,6 @@ export async function POST(req: Request) {
     model: openai('gpt-4o-mini'),
     messages: convertToModelMessages(messages),
     system: prompt({ sectionContexts, currentSection, currentSectionContext }),
-    stopWhen: stepCountIs(5),
     tools: {
       updateFormState: tool({
         description: 'Update the form state with a new value. Use field dataName as the key',
