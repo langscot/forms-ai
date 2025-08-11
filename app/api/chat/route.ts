@@ -99,9 +99,9 @@ export async function POST(req: Request) {
     sandbox: process.env.NODE_ENV === 'development',
   })
 
-  if (!validationResponse.success) {
-    return NextResponse.json({ error: 'Invalid token' }, { status: 400 });
-  }
+  // if (!validationResponse.success) {
+  //   return NextResponse.json({ error: 'Invalid token' }, { status: 400 });
+  // }
 
   const result = streamText({
     model: openai('gpt-4o-mini'),
