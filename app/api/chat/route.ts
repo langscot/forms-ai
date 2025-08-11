@@ -3,7 +3,6 @@ import { openai } from '@ai-sdk/openai';
 import { streamText, UIMessage, convertToModelMessages, tool } from 'ai';
 import TurndownService from 'turndown';
 import { validateTurnstileToken } from 'next-turnstile';
-import { NextResponse } from 'next/server';
 import { v4 } from 'uuid';
 import { z } from 'zod';
 
