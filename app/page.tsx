@@ -18,16 +18,16 @@ export default async function Home() {
         <ul className="govuk-list govuk-list--bullet">
           <li>Talk someone through the form step-by-step</li>
           <li>
-            Explain complicated questions in terms that relate to the user's previous answers and conversation history
+            Explain complicated questions in terms that relate to the user&apos;s previous answers and conversation history
           </li>
           <li>
-            Suggest likely answers based on earlier responses (e.g., if someone says they’re unemployed and live alone, it might suggest they’re not married)
+            Suggest likely answers based on earlier responses (e.g., if someone says they&apos;re unemployed and live alone, it might suggest they&apos;re not married)
           </li>
         </ul>
       </Details>
 
       <Paragraph>
-        This site is just a technology demo. It’s not connected to any real services. It’s designed to help explore what’s possible when online forms and AI work together.
+        This site is just a technology demo. It&apos;s not connected to any real services. It&apos;s designed to help explore what&apos;s possible when online forms and AI work together.
       </Paragraph>
 
       <Paragraph>Try it out:</Paragraph>

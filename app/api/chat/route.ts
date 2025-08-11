@@ -1,6 +1,6 @@
 import { Field } from '@/forms/types';
 import { openai } from '@ai-sdk/openai';
-import { streamText, UIMessage, convertToModelMessages, tool, stepCountIs, smoothStream } from 'ai';
+import { streamText, UIMessage, convertToModelMessages, tool } from 'ai';
 import TurndownService from 'turndown';
 import { validateTurnstileToken } from 'next-turnstile';
 import { NextResponse } from 'next/server';

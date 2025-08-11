@@ -2,14 +2,12 @@
 
 import { useChat } from "@ai-sdk/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Turnstile } from "next-turnstile";
 import { DefaultChatTransport, lastAssistantMessageIsCompleteWithToolCalls } from "ai";
 import TextArea from "./ui/TextArea";
 import Button from "./ui/Button";
 import Message, { DumbAssistantMessage } from "./message";
 import { MyUIMessage } from "@/app/types";
 import ChatHeader from "./chat-header";
-import { MessageCircle } from "lucide-react";
 
 export default function Chat({
   body,
@@ -41,7 +39,7 @@ export default function Chat({
 
   const { messages, sendMessage, setMessages, status, addToolResult } = useChat<MyUIMessage>({
     transport: new DefaultChatTransport({
-      prepareSendMessagesRequest: ({ id, messages }) => {
+      prepareSendMessagesRequest: ({ messages }) => {
         return {
           body: {
             messages,
