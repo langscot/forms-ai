@@ -1,6 +1,7 @@
 import { MyUIMessage } from "@/app/types";
 import Button from "./ui/Button";
 import { UseChatHelpers } from "@ai-sdk/react";
+import { RefreshCcwIcon } from "lucide-react";
 
 export default function ChatHeader({
   setMessages,
@@ -15,7 +16,7 @@ export default function ChatHeader({
     <h1 className="text-2xl font-bold">AI Assistant</h1>
     <div className="flex items-center gap-2">
       <Button variant="secondary" type="button" onClick={() => setMessages([])}>
-        Refresh Chat
+        {isWidget ? <RefreshCcwIcon size={18} /> : 'New chat'}
       </Button>
       {
         isWidget && (

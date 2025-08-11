@@ -24,12 +24,12 @@ export async function POST(req: Request) {
   } = await req.json();
 
   // Cloudflare verification
-  if (process.env.NODE_ENV !== 'development') {
-    const validationResponse = await validateTurnstile(token);
-    if (!validationResponse.success) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 400 });
-    }
-  }
+  // if (process.env.NODE_ENV !== 'development') {
+  //   const validationResponse = await validateTurnstile(token);
+  //   if (!validationResponse.success) {
+  //     return NextResponse.json({ error: 'Invalid token' }, { status: 400 });
+  //   }
+  // }
 
   const prompt = await createPrompt({ formName, currentSectionIndex, formState });
 
