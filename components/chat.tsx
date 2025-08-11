@@ -15,28 +15,29 @@ export default function Chat({
   body,
   setState,
   isWidget,
+  cfToken
 }: {
   body: Record<string, unknown>,
   setState: (updater: (prevState: Record<string, unknown>) => Record<string, unknown>) => void;
   isWidget?: boolean;
+  cfToken: string;
 }) {
   const [input, setInput] = useState('');
-  const [token, setToken] = useState('');
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
   const [open, setOpen] = useState(false);
 
   const context = useRef({
-    token,
+    token: cfToken,
     ...body
   })
 
   useEffect(() => {
     context.current = {
-      token,
+      token: cfToken,
       ...body
     };
-  }, [token, body]);
+  }, [cfToken, body]);
 
   const { messages, sendMessage, setMessages, status, addToolResult } = useChat<MyUIMessage>({
     transport: new DefaultChatTransport({
@@ -111,41 +112,29 @@ export default function Chat({
         ))}
       </div>
 
-      {
-        !token ?
-          <Turnstile
-            siteKey={process.env.NEXT_PUBLIC_CF_SITE_KEY!}
-            retry='auto'
-            refreshExpired='auto'
-            sandbox={process.env.NODE_ENV === 'development'}
-            onVerify={(token) => {
-              setToken(token);
-            }}
-            appearance="execute"
-          /> :
-          <form
-            className="pt-4 pb-6 px-4 border-t border-gray-200 shrink-0"
-            onSubmit={e => {
-              e.preventDefault();
-              // When user sends a message, re-enable autoscroll and jump to bottom
-              setAutoScrollEnabled(true);
-              handleSendMessage(input);
-            }}
-          >
-            <TextArea
-              value={input}
-              rows={3}
-              hint="Type your message to the AI here"
-              labelSize="l"
-              placeholder="Enter your message..."
-              onChange={e => setInput(e.currentTarget.value)}
-              className="flex-1"
-            />
-            <div className="flex items-center justify-end">
-              <Button type="submit" disabled={!input || !token || status === 'streaming' || status === 'submitted'}>Send</Button>
-            </div>
-          </form>
-      }
+      <form
+        className="pt-4 pb-6 px-4 border-t border-gray-200 shrink-0"
+        onSubmit={e => {
+          e.preventDefault();
+          // When user sends a message, re-enable autoscroll and jump to bottom
+          setAutoScrollEnabled(true);
+          handleSendMessage(input);
+        }}
+      >
+        <TextArea
+          value={input}
+          rows={3}
+          hint="Type your message to the AI here"
+          labelSize="l"
+          placeholder="Enter your message..."
+          onChange={e => setInput(e.currentTarget.value)}
+          className="flex-1"
+        />
+        <div className="flex items-center justify-end">
+          <Button type="submit" disabled={!input || !cfToken || status === 'streaming' || status === 'submitted'}>Send</Button>
+        </div>
+      </form>
+
     </div>
   )
 

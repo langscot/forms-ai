@@ -10,6 +10,7 @@ import { evaluate } from "@/forms/conditions";
 import { createFormState } from "@/forms/utils";
 import { useMediaQuery } from "usehooks-ts";
 import AnchorLink from "@/components/ui/AnchorLink";
+import { Turnstile } from "next-turnstile";
 
 export default function Demo() {
   const searchParams = useSearchParams();
@@ -17,6 +18,7 @@ export default function Demo() {
   const [currentSection, setCurrentSection] = useState(0);
   const [state, setState] = useState<Record<string, unknown>>({});
   const isMobile = useMediaQuery('(max-width: 1024px)');
+  const [cfToken, setCfToken] = useState('');
 
   // Load the form :)
   useEffect(() => {
@@ -98,6 +100,17 @@ export default function Demo() {
         />
       </div>
       <aside className="lg:block lg:col-span-4 lg:sticky lg:top-0 lg:h-dvh">
+        <Turnstile
+          siteKey={process.env.NEXT_PUBLIC_CF_SITE_KEY!}
+          className={cfToken ? 'hidden' : ''}
+          retry='auto'
+          refreshExpired='auto'
+          sandbox={process.env.NODE_ENV === 'development'}
+          onVerify={(token) => {
+            setCfToken(token);
+          }}
+          appearance="execute"
+        />
         <Chat
           isWidget={isMobile}
           setState={setState}
@@ -106,6 +119,7 @@ export default function Demo() {
             currentSection,
             currentSectionContext
           }}
+          cfToken={cfToken}
         />
       </aside>
     </div>
