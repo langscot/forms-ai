@@ -23,6 +23,9 @@ export default async function Home() {
           <li>
             Suggest likely answers based on earlier responses (e.g., if someone says they&apos;re unemployed and live alone, it might suggest they&apos;re not married)
           </li>
+          <li>
+            <strong>Fill out the form on behalf of the user</strong>
+          </li>
         </ul>
       </Details>
 
