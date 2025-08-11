@@ -21,7 +21,7 @@ export default async function Home() {
             Explain complicated questions in terms that relate to the user&apos;s previous answers and conversation history
           </li>
           <li>
-            Suggest likely answers based on earlier responses (e.g., if someone says they&apos;re unemployed and live alone, it might suggest they&apos;re not married)
+            Suggest likely answers based on earlier responses
           </li>
           <li>
             <strong>Fill out the form on behalf of the user</strong>

@@ -129,7 +129,12 @@ export default function Chat({
           className="flex-1"
         />
         <div className="flex items-center justify-end">
-          <Button type="submit" disabled={!input || !cfToken || status === 'streaming' || status === 'submitted'}>Send</Button>
+          <Button
+            type="submit"
+            disabled={!input || (process.env.NODE_ENV !== 'development' && !cfToken) || status === 'streaming' || status === 'submitted'}
+          >
+            Send
+          </Button>
         </div>
       </form>
 
@@ -138,7 +143,13 @@ export default function Chat({
 
   if (isWidget) {
     return <div className="fixed bottom-10 right-10">
-      <Button variant={open ? 'secondary' : 'default'} type="button" onClick={() => setOpen?.(!open)} className="govuk-button--start z-90">
+      <Button
+        variant={open ? 'secondary' : 'default'}
+        type="button"
+        onClick={() => setOpen?.(!open)}
+        className="govuk-button--start z-90"
+        disabled={process.env.NODE_ENV !== 'development' && !cfToken}
+      >
         {open ? 'Close Chat' : 'Open Chat'}
       </Button>
       {open && <div className="z-100 md:h-[80vh] md:max-h-[80vh] overflow-y-auto shadow-2xl fixed top-0 right-0 bottom-0 left-0 md:bottom-25 md:right-10 md:left-auto md:top-auto bg-white w-full md:max-w-md md:border border-gray-200">

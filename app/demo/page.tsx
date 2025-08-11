@@ -10,7 +10,7 @@ import { evaluate } from "@/forms/conditions";
 import { createFormState } from "@/forms/utils";
 import { useMediaQuery } from "usehooks-ts";
 import AnchorLink from "@/components/ui/AnchorLink";
-import { Turnstile } from "next-turnstile";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 export default function Demo() {
   const searchParams = useSearchParams();
@@ -30,6 +30,7 @@ export default function Demo() {
     });
   }, [searchParams]);
 
+  // Used to properly go back/forward between sections, taking into account display conditions
   const getNearestVisibleSectionIndex = useCallback((currentSection: number, direction: 'next' | 'previous') => {
     const dir = direction === 'next' ? 1 : -1;
     let i = currentSection + dir;
@@ -46,29 +47,6 @@ export default function Demo() {
     return currentSection;
   }, [form, state]);
 
-  const getVisibleFieldsInSection = useCallback((sectionIndex: number) => {
-    return form?.sections[sectionIndex].fields.filter((field: Field) => field.displayCondition ? evaluate(field.displayCondition, state) : true);
-  }, [state, form]);
-
-  const getSectionContexts = () => {
-    return form?.sections.map((section, index) => ({
-      sectionIndex: index,
-      title: section.title,
-      context: section.fields.filter(field => field.type === 'html' || field.type === 'staticText').map(field => field.content).join('\n')
-    }))
-  }
-
-  const currentSectionContext = useMemo(() => {
-    return {
-      sectionIndex: currentSection,
-      title: form?.sections[currentSection].title ?? '',
-      fields: (getVisibleFieldsInSection(currentSection) ?? []).map((field: Field) => ({
-        ...field,
-        value: state[field.dataName] as string
-      }))
-    }
-  }, [currentSection, form, getVisibleFieldsInSection, state]);
-
   if (!form) {
     return (
       <div className="w-full h-full flex p-12">
@@ -84,9 +62,7 @@ export default function Demo() {
     );
   }
 
-
   return (
-
     <div className="grid grid-cols-1 lg:grid-cols-12">
       <div className="col-span-1 lg:col-span-8 p-6 lg:pt-6 pb-32 lg:px-12">
         <AnchorLink href="/" className="mb-6 block">Back to home</AnchorLink>
@@ -100,27 +76,20 @@ export default function Demo() {
         />
       </div>
       <aside className="lg:block lg:col-span-4 lg:sticky lg:top-0 lg:h-dvh">
-        <Turnstile
-          siteKey={process.env.NEXT_PUBLIC_CF_SITE_KEY!}
-          className={cfToken ? 'hidden' : ''}
-          retry='auto'
-          refreshExpired='auto'
-          sandbox={process.env.NODE_ENV === 'development'}
-          onVerify={(token) => {
-            setCfToken(token);
-          }}
-          appearance="execute"
-        />
         <Chat
           isWidget={isMobile}
           setState={setState}
           body={{
-            sectionContexts: getSectionContexts() ?? [],
-            currentSection,
-            currentSectionContext
+            formName: form.title,
+            currentSectionIndex: currentSection,
+            formState: state
           }}
           cfToken={cfToken}
         />
+        {process.env.NODE_ENV !== 'development' && <Turnstile
+          siteKey={process.env.NEXT_PUBLIC_CF_SITE_KEY!}
+          onSuccess={setCfToken}
+        />}
       </aside>
     </div>
   );
