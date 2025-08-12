@@ -11,6 +11,14 @@ export default async function Home() {
   return (
     <div className="h-screen max-h-screen container mx-auto max-w-2xl py-12 px-4">
       <Heading>Forms & AI</Heading>
+      <div className="mb-6">
+        <AnchorLink
+          href="https://github.com/langscot/forms-ai"
+          className="inline-flex items-center gap-2"
+        >
+          <span>View on GitHub</span>
+        </AnchorLink>
+      </div>
       <Paragraph>This experiment asks: Can AI make forms easier to complete?</Paragraph>
 
       <Details title="How?">

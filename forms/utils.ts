@@ -1,6 +1,7 @@
 import { BaseInputField, Form } from "./types"
 import { evaluateDefaultExpression } from "./expressions";
 
+// Takes in a form object and creates a "state" object where each key is a fieldDataname, initialized to defaultValue
 export const createFormState = (form?: Form | null) => {
   const state: Record<string, unknown> = {};
 

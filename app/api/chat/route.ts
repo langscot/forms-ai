@@ -24,16 +24,15 @@ export async function POST(req: Request) {
   } = await req.json();
 
   // Cloudflare verification
-  // if (process.env.NODE_ENV !== 'development') {
-  //   const validationResponse = await validateTurnstile(token);
-  //   if (!validationResponse.success) {
-  //     return NextResponse.json({ error: 'Invalid token' }, { status: 400 });
-  //   }
-  // }
+  if (process.env.CLOUDFLARE_TURNSTILE_ENABLED === 'true') {
+    const validationResponse = await validateTurnstile(token);
+    console.log(validationResponse);
+    if (!validationResponse.success) {
+      return NextResponse.json({ error: 'Invalid token' }, { status: 400 });
+    }
+  }
 
   const prompt = await createPrompt({ formName, currentSectionIndex, formState });
-
-  console.log(prompt);
 
   const result = streamText({
     model: openai('gpt-4o-mini'),
@@ -41,7 +40,7 @@ export async function POST(req: Request) {
     system: prompt,
     tools: {
       updateFormState: tool({
-        description: 'Update the form state with a new value. Use field dataName as the key',
+        description: 'Update the form state with a new value. Use field dataName (dn) as the key',
         inputSchema: z.object({
           dataName: z.string(),
           value: z.string()

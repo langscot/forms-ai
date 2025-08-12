@@ -47,6 +47,7 @@ export default function Demo() {
     return currentSection;
   }, [form, state]);
 
+  // Sekeleton loading state
   if (!form) {
     return (
       <div className="w-full h-full flex p-12">
@@ -86,10 +87,10 @@ export default function Demo() {
           }}
           cfToken={cfToken}
         />
-        {process.env.NODE_ENV !== 'development' && <Turnstile
+        <Turnstile
           siteKey={process.env.NEXT_PUBLIC_CF_SITE_KEY!}
           onSuccess={setCfToken}
-        />}
+        />
       </aside>
     </div>
   );

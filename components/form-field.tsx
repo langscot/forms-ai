@@ -32,6 +32,8 @@ export default function FormField({ field, state, setState }: FormFieldProps) {
   }
 
   function renderField() {
+    // This could probably be refactored a bit but works for now, plus we're still adding more fields etc so
+    // don't want to refactor too early
     switch (field.type) {
       case 'text':
         return <TextInput hint={field.helpText} name={field.id} label={field.label} value={value as string} onChange={handleChange} />;
@@ -63,8 +65,6 @@ export default function FormField({ field, state, setState }: FormFieldProps) {
   }
 
   return <>
-    {/* <span className="text-sm text-gray-500">Visible: {isVisible ? 'true' : 'false'}</span><br />
-    <span className="text-sm text-gray-500">Display Condition: {field.displayCondition}</span> */}
     {renderField()}
   </>
 }
